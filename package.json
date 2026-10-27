@@ -9,6 +9,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:contracts": "vitest run --config vitest.contracts.config.ts",
+    "fixtures:generate": "node scripts/generate-contract-fixtures.mjs",
     "pact:publish": "pact broker publish -b ${PACT_BROKER_BASE_URL:-http://localhost:9292} -r --tag-with-git-branch pacts/*.json",
     "stub": "docker run --rm -p 8090:8090 -v \"$PWD/pacts:/app/pacts\" pactfoundation/pact-stub-server -p 8090 -o -d pacts",
     "typecheck": "tsc --noEmit",
