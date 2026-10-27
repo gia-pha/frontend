@@ -1,0 +1,558 @@
+{
+  "consumer": {
+    "name": "frontend"
+  },
+  "interactions": [
+    {
+      "description": "a request to finish login with a valid assertion",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a login session and a user with a passkey exist"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "clientExtensionResults": {},
+            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "response": {
+              "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ",
+              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+              "signature": "MEQCIHtpzgNSBltsgNZFidk1vp8eeh7UZLNEpEtz4UdqoeaWAiAl52VfuD2ZhNz9KJlHe9Gaq19jjXSNLIwl4zcCrvMXUg",
+              "userHandle": "cGFjdHVzZXIwMDAwMDAwMQ"
+            },
+            "type": "public-key"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Cookie": [
+            "sid=pact-login-session"
+          ]
+        },
+        "method": "POST",
+        "path": "/api/passkey/loginFinish"
+      },
+      "response": {
+        "body": {
+          "content": "Login Success",
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Set-Cookie": [
+            "sid=pact-login-session-2; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Set-Cookie": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to finish login with an unknown session",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no login session exists"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "clientExtensionResults": {},
+            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "response": {
+              "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ",
+              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
+              "signature": "MEQCIHtpzgNSBltsgNZFidk1vp8eeh7UZLNEpEtz4UdqoeaWAiAl52VfuD2ZhNz9KJlHe9Gaq19jjXSNLIwl4zcCrvMXUg",
+              "userHandle": "cGFjdHVzZXIwMDAwMDAwMQ"
+            },
+            "type": "public-key"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Cookie": [
+            "sid=pact-unknown-session"
+          ]
+        },
+        "method": "POST",
+        "path": "/api/passkey/loginFinish"
+      },
+      "response": {
+        "body": {
+          "content": "session id not found",
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to finish registration with a valid attestation",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a registration session exists"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "clientExtensionResults": {},
+            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "response": {
+              "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViUSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAAAAAAAAAAAAAAAAAAAAAAAAEHBhY3RjcmVkMDAwMDAwMDGlAQIDJiACIVggWe77YME8WGGoNAs97D38MBmSFnZYni5WMjj_6MkNR-YiWCCrVjSW0wQzuw_qfMAlctjwa1wjaydIgrc2pV0t2Q9zVg",
+              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0"
+            },
+            "type": "public-key"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Cookie": [
+            "sid=pact-reg-session"
+          ]
+        },
+        "method": "POST",
+        "path": "/api/passkey/registerFinish"
+      },
+      "response": {
+        "body": {
+          "content": "Registration Success",
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Set-Cookie": [
+            "sid=pact-reg-session-2; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Set-Cookie": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to finish registration with an unknown session",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no registration session exists"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "clientExtensionResults": {},
+            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
+            "response": {
+              "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViUSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAAAAAAAAAAAAAAAAAAAAAAAAEHBhY3RjcmVkMDAwMDAwMDGlAQIDJiACIVggWe77YME8WGGoNAs97D38MBmSFnZYni5WMjj_6MkNR-YiWCCrVjSW0wQzuw_qfMAlctjwa1wjaydIgrc2pV0t2Q9zVg",
+              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0"
+            },
+            "type": "public-key"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Cookie": [
+            "sid=pact-unknown-session"
+          ]
+        },
+        "method": "POST",
+        "path": "/api/passkey/registerFinish"
+      },
+      "response": {
+        "body": {
+          "content": "session id not found",
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to start login",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "the auth service is available"
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/passkey/loginStart"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "publicKey": {
+              "challenge": "ASNFZ4mrze8BI0VniavN7w",
+              "rpId": "localhost",
+              "timeout": 300000
+            }
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Set-Cookie": [
+            "sid=pact-login-session; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.publicKey.challenge": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[A-Za-z0-9_-]+$"
+                }
+              ]
+            },
+            "$.publicKey.rpId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[a-z0-9.-]+$"
+                }
+              ]
+            },
+            "$.publicKey.timeout": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Set-Cookie": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request to start registration for Alice",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "the auth service is available"
+        }
+      ],
+      "request": {
+        "body": {
+          "content": {
+            "name": "Alice"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "POST",
+        "path": "/api/passkey/registerStart"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "publicKey": {
+              "authenticatorSelection": {
+                "residentKey": "required"
+              },
+              "challenge": "ASNFZ4mrze8BI0VniavN7w",
+              "extensions": {
+                "credProps": true
+              },
+              "pubKeyCredParams": [
+                {
+                  "alg": -7,
+                  "type": "public-key"
+                }
+              ],
+              "rp": {
+                "id": "localhost",
+                "name": "Gia Pha"
+              },
+              "timeout": 300000,
+              "user": {
+                "displayName": "Alice",
+                "id": "cGFjdHVzZXIwMDAwMDAwMQ",
+                "name": "Alice"
+              }
+            }
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Set-Cookie": [
+            "sid=pact-reg-session; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.publicKey.authenticatorSelection.residentKey": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.publicKey.challenge": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[A-Za-z0-9_-]+$"
+                }
+              ]
+            },
+            "$.publicKey.extensions.credProps": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.publicKey.pubKeyCredParams": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.publicKey.pubKeyCredParams[*].alg": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.publicKey.pubKeyCredParams[*].type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.publicKey.rp.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[a-z0-9.-]+$"
+                }
+              ]
+            },
+            "$.publicKey.rp.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.publicKey.timeout": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.publicKey.user.displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.publicKey.user.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[A-Za-z0-9_-]+$"
+                }
+              ]
+            },
+            "$.publicKey.user.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Set-Cookie": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "17.1.4"
+    },
+    "pactRust": {
+      "ffi": "0.5.8",
+      "models": "1.3.16"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "auth"
+  }
+}
