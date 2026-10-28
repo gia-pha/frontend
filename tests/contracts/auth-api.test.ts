@@ -14,8 +14,8 @@ import { type AuthApi, createAuthApi } from '../../src/services/auth-api.js';
 import { assertion, attestation, params } from './fixtures.js';
 
 // Fixed session ids so the provider state can seed the matching session. They
-// also match the sid each flow sets, so `pnpm stub` can serve the whole demo
-// flow (login then logout) out of these pacts.
+// also match the sid each flow sets, so `pnpm stub` can serve a whole
+// login-then-logout run out of these pacts.
 const REG_SESSION = 'pact-reg-session';
 const LOGIN_SESSION = 'pact-login-session';
 

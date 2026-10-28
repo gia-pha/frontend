@@ -8,9 +8,9 @@ import type {
   RegistrationResponseJSON,
 } from '@simplewebauthn/browser';
 
-// Empty base url keeps the calls same-origin (see .env.demo and the vite proxy).
-const API_BASE_URL =
-  import.meta.env.VITE_AUTH_BACKEND_URL ?? 'http://localhost:8080';
+// Origin of the auth service, baked in at build time. Empty means the calls
+// stay same-origin (/api/... on whatever serves this app).
+const API_BASE_URL = import.meta.env.VITE_AUTH_BACKEND_URL ?? '';
 
 export interface AuthApi {
   registerStart(name: string): Promise<PublicKeyCredentialCreationOptionsJSON>;

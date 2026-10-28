@@ -3,9 +3,9 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 COPY . .
-# Baked into the bundle at build time (vite): point at the real auth
-# service (live mode) or at the pact stub server (demo mode).
-ARG VITE_AUTH_BACKEND_URL=http://localhost:8080
+# Baked into the bundle by vite: origin of the auth service. Set it per
+# environment at build time; empty means the app calls /api/ on its own origin.
+ARG VITE_AUTH_BACKEND_URL=
 ENV VITE_AUTH_BACKEND_URL=${VITE_AUTH_BACKEND_URL}
 RUN pnpm build
 
