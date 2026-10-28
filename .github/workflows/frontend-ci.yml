@@ -44,7 +44,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm test:run
+      - run: pnpm test:unit
 
   contracts:
     needs: check

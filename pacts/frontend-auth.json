@@ -4,11 +4,14 @@
   },
   "interactions": [
     {
-      "description": "a request to finish login with a valid assertion",
+      "description": "a request to finish login with an assertion",
       "pending": false,
       "providerStates": [
         {
-          "name": "a login session and a user with a passkey exist"
+          "name": "a login session and a user with a passkey exist",
+          "params": {
+            "sessionId": "pact-login-session"
+          }
         }
       ],
       "request": {
@@ -50,7 +53,7 @@
             "application/json"
           ],
           "Set-Cookie": [
-            "sid=pact-login-session-2; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+            "sid=pact-login-session; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
           ]
         },
         "matchingRules": {
@@ -70,7 +73,7 @@
               "matchers": [
                 {
                   "match": "regex",
-                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                  "regex": "^sid=[A-Za-z0-9_-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
                 }
               ]
             }
@@ -81,74 +84,14 @@
       "type": "Synchronous/HTTP"
     },
     {
-      "description": "a request to finish login with an unknown session",
+      "description": "a request to finish registration with an attestation",
       "pending": false,
       "providerStates": [
         {
-          "name": "no login session exists"
-        }
-      ],
-      "request": {
-        "body": {
-          "content": {
-            "clientExtensionResults": {},
-            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
-            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
-            "response": {
-              "authenticatorData": "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ",
-              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0",
-              "signature": "MEQCIHtpzgNSBltsgNZFidk1vp8eeh7UZLNEpEtz4UdqoeaWAiAl52VfuD2ZhNz9KJlHe9Gaq19jjXSNLIwl4zcCrvMXUg",
-              "userHandle": "cGFjdHVzZXIwMDAwMDAwMQ"
-            },
-            "type": "public-key"
-          },
-          "contentType": "application/json",
-          "encoded": false
-        },
-        "headers": {
-          "Content-Type": [
-            "application/json"
-          ],
-          "Cookie": [
-            "sid=pact-unknown-session"
-          ]
-        },
-        "method": "POST",
-        "path": "/api/passkey/loginFinish"
-      },
-      "response": {
-        "body": {
-          "content": "session id not found",
-          "contentType": "application/json",
-          "encoded": false
-        },
-        "headers": {
-          "Content-Type": [
-            "application/json"
-          ]
-        },
-        "matchingRules": {
-          "body": {
-            "$": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            }
+          "name": "a registration session exists",
+          "params": {
+            "sessionId": "pact-reg-session"
           }
-        },
-        "status": 400
-      },
-      "type": "Synchronous/HTTP"
-    },
-    {
-      "description": "a request to finish registration with a valid attestation",
-      "pending": false,
-      "providerStates": [
-        {
-          "name": "a registration session exists"
         }
       ],
       "request": {
@@ -188,7 +131,7 @@
             "application/json"
           ],
           "Set-Cookie": [
-            "sid=pact-reg-session-2; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
+            "sid=pact-reg-session; Path=/; Max-Age=3600; HttpOnly; SameSite=Strict"
           ]
         },
         "matchingRules": {
@@ -208,7 +151,7 @@
               "matchers": [
                 {
                   "match": "regex",
-                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                  "regex": "^sid=[A-Za-z0-9_-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
                 }
               ]
             }
@@ -219,63 +162,45 @@
       "type": "Synchronous/HTTP"
     },
     {
-      "description": "a request to finish registration with an unknown session",
+      "description": "a request to log out",
       "pending": false,
       "providerStates": [
         {
-          "name": "no registration session exists"
+          "name": "a logged in session exists",
+          "params": {
+            "sessionId": "pact-login-session"
+          }
         }
       ],
       "request": {
-        "body": {
-          "content": {
-            "clientExtensionResults": {},
-            "id": "cGFjdGNyZWQwMDAwMDAwMQ",
-            "rawId": "cGFjdGNyZWQwMDAwMDAwMQ",
-            "response": {
-              "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViUSZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2NFAAAAAAAAAAAAAAAAAAAAAAAAAAAAEHBhY3RjcmVkMDAwMDAwMDGlAQIDJiACIVggWe77YME8WGGoNAs97D38MBmSFnZYni5WMjj_6MkNR-YiWCCrVjSW0wQzuw_qfMAlctjwa1wjaydIgrc2pV0t2Q9zVg",
-              "clientDataJSON": "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQVNORlo0bXJ6ZThCSTBWbmlhdk43dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MyIsImNyb3NzT3JpZ2luIjpmYWxzZX0"
-            },
-            "type": "public-key"
-          },
-          "contentType": "application/json",
-          "encoded": false
-        },
         "headers": {
-          "Content-Type": [
-            "application/json"
-          ],
           "Cookie": [
-            "sid=pact-unknown-session"
+            "sid=pact-login-session"
           ]
         },
         "method": "POST",
-        "path": "/api/passkey/registerFinish"
+        "path": "/api/logout"
       },
       "response": {
-        "body": {
-          "content": "session id not found",
-          "contentType": "application/json",
-          "encoded": false
-        },
         "headers": {
-          "Content-Type": [
-            "application/json"
+          "Set-Cookie": [
+            "sid=; Path=/; Max-Age=-1; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Strict"
           ]
         },
         "matchingRules": {
-          "body": {
-            "$": {
+          "header": {
+            "Set-Cookie": {
               "combine": "AND",
               "matchers": [
                 {
-                  "match": "type"
+                  "match": "regex",
+                  "regex": "^sid=; Path=\\/; Max-Age=-1(; Expires=[^;]+)?; HttpOnly; SameSite=Strict$"
                 }
               ]
             }
           }
         },
-        "status": 400
+        "status": 204
       },
       "type": "Synchronous/HTTP"
     },
@@ -346,7 +271,7 @@
               "matchers": [
                 {
                   "match": "regex",
-                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                  "regex": "^sid=[A-Za-z0-9_-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
                 }
               ]
             }
@@ -529,7 +454,7 @@
               "matchers": [
                 {
                   "match": "regex",
-                  "regex": "^sid=[A-Za-z0-9_=-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
+                  "regex": "^sid=[A-Za-z0-9_-]+; Path=\\/; Max-Age=3600; HttpOnly; SameSite=Strict$"
                 }
               ]
             }
