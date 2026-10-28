@@ -5,8 +5,6 @@
 // auth (Go) provider verifies. The tests never depend on each other: every
 // provider state seeds exactly what its own request needs, so no test relies
 // on a side effect of another call.
-import path from 'node:path';
-
 import { MatchersV3 as M, PactV4 } from '@pact-foundation/pact';
 import { describe, expect, it } from 'vitest';
 
@@ -25,7 +23,8 @@ const newProvider = () =>
   new PactV4({
     consumer: 'frontend',
     provider: 'auth',
-    dir: path.resolve(process.cwd(), 'pacts'),
+    // relative to the repo root, which is where both test scripts run
+    dir: 'pacts',
     logLevel: 'warn',
   });
 
