@@ -1,5 +1,5 @@
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   resolve: {
@@ -8,9 +8,7 @@ export default defineConfig({
   esbuild: {
     include: ['**/*.ts'],
   },
-  plugins: [
-    tailwindcss(),
-  ],
+  plugins: [tailwindcss()],
   build: {
     sourcemap: true,
   },

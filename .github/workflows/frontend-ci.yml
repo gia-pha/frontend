@@ -44,7 +44,44 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm test:run
+      - run: pnpm test:unit
+
+  contracts:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run pact consumer contract tests
+        run: pnpm test:contracts
+
+      - name: Publish pacts to the Pact Broker
+        if: github.ref == 'refs/heads/main'
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+        run: |
+          if [ -z "$PACT_BROKER_BASE_URL" ]; then
+            echo "PACT_BROKER_URL secret is not set; skipping publish"
+            exit 0
+          fi
+          pnpm pact:publish
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pacts
+          path: pacts/*.json
 
   build:
     needs: check
